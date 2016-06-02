@@ -10,6 +10,20 @@
             
             var mainWindow = gui.Window.get();
 
+            var shortcut = new gui.Shortcut({
+                key : "Ctrl+Alt+A",
+                active : function(){
+                    gui.Window.get().show();
+                    console.log("You pressed: " + this.key);
+                }
+            });
+            
+            gui.App.registerGlobalHotKey(shortcut);
+            
+            shortcut.on('active',function(){
+                // Do something
+            });
+            
 
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
