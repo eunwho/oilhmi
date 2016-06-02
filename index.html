@@ -2,14 +2,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello World!</title>
+        <title>NW.js Chapter2 Native UI APIs</title>
     </head>
     <body>
         <!-- script type="text/javascript" src=""-->
         <script>
+            var gui = require("nw.gui");
+            var currentWindow = gui.Window.get();
+
+            currentWindow.on('minimize',function(){
+                alert('Minimizing Window');
+            });
+
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
+
+            alert(gui.App.dataPath);            
+
         </script>
     </body>
 </html>
