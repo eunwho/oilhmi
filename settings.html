@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NW.js Chapter2 settings.html</title>
+    </head>
+    <body>
+        <script>
+            var gui = require("nw.gui");
+            var settingsWindow = gui.Window.get();
+
+            settingstWindow.on('close',function(){
+                this.close(true);
+            });
+        </script>
+        <h1> This is settings.html </h1>
+    </body>
+</html>
