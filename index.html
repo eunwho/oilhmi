@@ -6,42 +6,22 @@
     <body>
         <!-- script type="text/javascript" src=""-->
         <script>
-            var fs = require("fs");
             var gui = require("nw.gui");
             
-            var currentWindow = gui.Window.get();
+            var mainWindow = gui.Window.get();
 
-            currentWindow.on('minimize',function(){
-                alert('Minimizing Window');
-            });
 
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
 
-            var path = require("path");
+            window.open('settings.html');
             
-            var settings = {
-                'show_sidebar' : true,
-                'show_icons'   : false
-            };
-            
-            console.log(gui.App.dataPath);
-            
-            var manifestData = gui.App.manifest;
-            alert(manifestData.name);
-
-            
-            var settingsFilename = path.join(gui.App.dataPath,'mySetting.json');
-            // write setting file
-            fs.writeFile(settingsFilename,JSON.stringify(settings));
-            
-            // read settings file
-            fs.readFile(settingsFilename,'utf8',function(err,data){
-                var saveSettings = JSON.parse(data);
-                console.log(saveSettings);
+            mainWindow.on('close',function(){
+                gui.App.closeAllWindows();
+                gui.App.quit();
             });
-  
+
         </script>
     </body>
 </html>
