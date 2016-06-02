@@ -1,6 +1,9 @@
 {
     "name": "nw-hellow-world",
     "main": "index.html",
+    "window" : {
+        "show":false
+    },
     "dependencies":{
         "markdown":"0.5.x"
     }

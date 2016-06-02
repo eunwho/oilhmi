@@ -24,6 +24,21 @@
                 // Do something
             });
             
+            window.onload = function(){
+                gui.Window.get().show();
+            };
+
+            var language = mainWindow.window.navigator.language;
+            console.log(language);
+            
+            console.log({
+                'x' : mainWindow.x,
+                'y' : mainWindow.y,
+                'height': mainWindow.height,
+                'width' : mainWindow.width
+            });
+            
+
 
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
@@ -31,7 +46,15 @@
 
             window.open('settings.html');
             
-            mainWindow.on('close',function(){
+
+            setTimeout(function(){
+                mainWindow.x = 10;
+                mainWindow.y = 10;
+                mainWindow.width = 200;
+                mainWindow.height = 200;
+            }, 20000);
+            
+          mainWindow.on('close',function(){
                 gui.App.closeAllWindows();
                 gui.App.quit();
             });
