@@ -7,9 +7,8 @@
         <!-- script type="text/javascript" src=""-->
         <script>
             var gui = require("nw.gui");
-            
             var mainWindow = gui.Window.get();
-
+            
             var shortcut = new gui.Shortcut({
                 key : "Ctrl+Alt+A",
                 active : function(){
@@ -28,37 +27,33 @@
                 gui.Window.get().show();
             };
 
-            var language = mainWindow.window.navigator.language;
-            console.log(language);
-            
-            console.log({
-                'x' : mainWindow.x,
-                'y' : mainWindow.y,
-                'height': mainWindow.height,
-                'width' : mainWindow.width
-            });
-            
-
+            var newWindow = gui.Window.open("settings.html");
 
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
 
-            window.open('settings.html');
-            
+            mainWindow.on('enter-fullscreen',function(){
+                console.log("Windows has entered fullscreen mode");
+            });
 
-            setTimeout(function(){
-                mainWindow.x = 10;
-                mainWindow.y = 10;
-                mainWindow.width = 200;
-                mainWindow.height = 200;
-            }, 20000);
-            
-          mainWindow.on('close',function(){
+            mainWindow.on('leave-fullscreen',function(){
+                console.log("Windows has left fullscreen mode");
+            });
+
+            mainWindow.on('close',function(){
                 gui.App.closeAllWindows();
                 gui.App.quit();
             });
 
         </script>
+        <a href="#"onclick="mainWindow.toggleFullscreen()">Toggle Window</a><br>
+        <a href="#"onclick="mainWindow.minimize()">Minimize Window</a><br>
+        <a href="#"onclick="mainWindow.restore()" >Restore Window</a><br>
+        <a href="#"onclick="mainWindow.show()"    >Show Window</a><br>
+        <a href="#"onclick="mainWindow.hide()"    >Hide Window</a><br>
+        <a href="#"onclick="mainWindow.maximize()">Maximize Window</a><br>
+        <a href="#"onclick="mainWindow.unmaximize()">UnMaximize Window</a><br>
+        <a href="#"onclick="mainWindow.focus()"   >Focus Window</a><br>
     </body>
 </html>
