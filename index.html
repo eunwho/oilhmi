@@ -4,63 +4,18 @@
         <title>NW.js Chapter2 The Menu API</title>
     </head>
     <body>
-        <!-- script type="text/javascript" src=""-->
+        <div id = "area" style = "padding : 40px;background:#00f;">Right click here</div>
         <script>
             var gui = require("nw.gui");
-            var mainWindow = gui.Window.get();
             var menu = new gui.Menu();
             menu.append(new gui.MenuItem({'label' : 'menuItem1'}));
-
             
-            var menuItem = new gui.MenuItem({
-                type : 'checkbox',
-                label: 'Menu Checkbox',
-                icon: 'icon16.png',
-                tooltip : 'Hello World',
-                click : function(){
-                    // Do something on click
-                },
-                enabled : true,
-                checked : false,// checkboxes 
-                key : 'M',
-                modifiers : 'ctrl-shift',
-                // iconIsTemplate : true, // Mac Os
-                submenu : new gui.Menu() // accept a Memu Object
-            })
-
-            var shortcut = new gui.Shortcut({
-                key : "Ctrl+Alt+A",
-                active : function(){
-                    gui.Window.get().show();
-                    console.log("You pressed: " + this.key);
-                }
+            document.getElementById('area').addEventListener('contextmenu',function(e){
+                e.preventDefault();
+                menu.popup(e.x,e.y);
+                return false;
             });
-            
-            gui.App.registerGlobalHotKey(shortcut);
-            
-            shortcut.on('active',function(){
-                // Do something
-            });
-            /*
-            var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Menu Item API.\n" + "We are using **io.js** " + "version *" + process.version + "*";
-            div.innerHTML = markdown.toHTML(content);
-            document.body.appendChild(div);
-
-            mainWindow.on('close',function(){
-                gui.App.closeAllWindows();
-                gui.App.quit();
-            });
- 
-            */
- 
-            setTimeout(function(){
-               // mainWindow.moveTo(screens.width-mainWindow.width,0);
-            },2000);
- 
         </script>
- 
-        <a href="#"onclick="mainWindow.toggleKioskMode();">Toggle Kiosk Mode</a><br>
- 
         <style>
         </style>        
 
