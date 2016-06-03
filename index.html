@@ -41,19 +41,13 @@
                 console.log("Windows has left fullscreen mode");
             });
 
+            
             mainWindow.on('close',function(){
                 gui.App.closeAllWindows();
                 gui.App.quit();
             });
 
         </script>
-        <a href="#"onclick="mainWindow.toggleFullscreen()">Toggle Window</a><br>
-        <a href="#"onclick="mainWindow.minimize()">Minimize Window</a><br>
-        <a href="#"onclick="mainWindow.restore()" >Restore Window</a><br>
-        <a href="#"onclick="mainWindow.show()"    >Show Window</a><br>
-        <a href="#"onclick="mainWindow.hide()"    >Hide Window</a><br>
-        <a href="#"onclick="mainWindow.maximize()">Maximize Window</a><br>
-        <a href="#"onclick="mainWindow.unmaximize()">UnMaximize Window</a><br>
-        <a href="#"onclick="mainWindow.focus()"   >Focus Window</a><br>
+        <a href="#"onclick="mainWindow.toggleKioskMode();">Toggle Kiosk Mode</a><br>
     </body>
 </html>
