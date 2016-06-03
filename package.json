@@ -1,8 +1,0 @@
-{
-    "name": "Menu API",
-    "main": "index.html",
-    "dependencies":{
-        "markdown":"0.5.x"
-    }
-}
-
