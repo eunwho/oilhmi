@@ -11,7 +11,10 @@
             
             gui.Screen.Init(); // Screen API is a Singleton
             
-            var screen = gui.Screen.screens;
+            var screens = gui.Screen.screens;
+            var myScreen = screens[0];
+            
+            var rightCorner = myScreen.work_area.width - mainWindow.width;
             
             
             var shortcut = new gui.Shortcut({
@@ -33,8 +36,7 @@
             };
 
  
-            mainWindow.moveTo(screen.width - mainWindow.width,0);
-
+ 
             var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Framless windows and drag regions.\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
@@ -43,11 +45,14 @@
                 gui.App.closeAllWindows();
                 gui.App.quit();
             });
-
+ 
+            setTimeout(function(){
+               // mainWindow.moveTo(screens.width-mainWindow.width,0);
+                mainWindow.moveTo(rightCorner,myScreen.work_area.y);
+            },2000);
+ 
         </script>
         <a href="#"onclick="mainWindow.toggleKioskMode();">Toggle Kiosk Mode</a><br>
-        
-        
         
         <!-- Custom title bar -->
         <span class='draggable'>
@@ -74,5 +79,6 @@
             }
             .exit:hover{ color : #333;}
         </style>        
+
     </body>
 </html>
