@@ -9,6 +9,11 @@
             var gui = require("nw.gui");
             var mainWindow = gui.Window.get();
             
+            gui.Screen.Init(); // Screen API is a Singleton
+            
+            var screen = gui.Screen.screens;
+            
+            
             var shortcut = new gui.Shortcut({
                 key : "Ctrl+Alt+A",
                 active : function(){
@@ -27,21 +32,13 @@
                 gui.Window.get().show();
             };
 
-            var newWindow = gui.Window.open("settings.html");
+ 
+            mainWindow.moveTo(screen.width - mainWindow.width,0);
 
-            var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Hello World!\n" + "We are using **io.js** " + "version *" + process.version + "*";
+            var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Framless windows and drag regions.\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
 
-            mainWindow.on('enter-fullscreen',function(){
-                console.log("Windows has entered fullscreen mode");
-            });
-
-            mainWindow.on('leave-fullscreen',function(){
-                console.log("Windows has left fullscreen mode");
-            });
-
-            
             mainWindow.on('close',function(){
                 gui.App.closeAllWindows();
                 gui.App.quit();
@@ -49,5 +46,33 @@
 
         </script>
         <a href="#"onclick="mainWindow.toggleKioskMode();">Toggle Kiosk Mode</a><br>
+        
+        
+        
+        <!-- Custom title bar -->
+        <span class='draggable'>
+            Draggable
+            <a href="#"onclick="window.close()" class="exit">&#x2716;</a>
+        </span>
+        <!-- Window content -->
+        <p>Window Content</p>
+        
+        <style>
+            html, body{
+                padding:0;margin:0;
+            }
+            .draggable{
+                display: block; background:#eee;
+                padding:10px; cursor:default;
+                -webkit-app-region:drag;
+                -webkit-user-select:none;
+            }
+            .exit{
+                float:right; color:#666; text-decoration : none;
+                cursor : default;
+                -webkit-app-region: no-drag;
+            }
+            .exit:hover{ color : #333;}
+        </style>        
     </body>
 </html>

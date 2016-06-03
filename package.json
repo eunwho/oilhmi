@@ -1,8 +1,10 @@
 {
-    "name": "nw-hellow-world",
+    "name": "My frameless App",
     "main": "index.html",
     "window" : {
-        "show":false
+        "show":false,
+        "frame":false,
+        "toolbar":false
     },
     "dependencies":{
         "markdown":"0.5.x"
