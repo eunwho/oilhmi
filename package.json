@@ -1,11 +1,6 @@
 {
-    "name": "My frameless App",
+    "name": "Menu API",
     "main": "index.html",
-    "window" : {
-        "show":false,
-        "frame":false,
-        "toolbar":false
-    },
     "dependencies":{
         "markdown":"0.5.x"
     }

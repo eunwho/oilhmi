@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>NW.js Chapter2 Native UI APIs</title>
+        <title>NW.js Chapter2 The Menu API</title>
     </head>
     <body>
         <!-- script type="text/javascript" src=""-->
         <script>
             var gui = require("nw.gui");
             var mainWindow = gui.Window.get();
+            var menu = new gui.Menu();
+            menu.append(new gui.MenuItem({'label' : 'menuItem1'}));
+
             
-            gui.Screen.Init(); // Screen API is a Singleton
-            
-            var screens = gui.Screen.screens;
-            var myScreen = screens[0];
-            
-            var rightCorner = myScreen.work_area.width - mainWindow.width;
-            
-            
+            var menuItem = new gui.MenuItem({
+                type : 'checkbox',
+                label: 'Menu Checkbox',
+                icon: 'icon16.png',
+                tooltip : 'Hello World',
+                click : function(){
+                    // Do something on click
+                },
+                enabled : true,
+                checked : false,// checkboxes 
+                key : 'M',
+                modifiers : 'ctrl-shift',
+                // iconIsTemplate : true, // Mac Os
+                submenu : new gui.Menu() // accept a Memu Object
+            })
+
             var shortcut = new gui.Shortcut({
                 key : "Ctrl+Alt+A",
                 active : function(){
@@ -30,14 +41,8 @@
             shortcut.on('active',function(){
                 // Do something
             });
-            
-            window.onload = function(){
-                gui.Window.get().show();
-            };
-
- 
- 
-            var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Framless windows and drag regions.\n" + "We are using **io.js** " + "version *" + process.version + "*";
+            /*
+            var markdown = require("markdown").markdown, div = document.createElement("div"), content = "#Menu Item API.\n" + "We are using **io.js** " + "version *" + process.version + "*";
             div.innerHTML = markdown.toHTML(content);
             document.body.appendChild(div);
 
@@ -46,38 +51,17 @@
                 gui.App.quit();
             });
  
+            */
+ 
             setTimeout(function(){
                // mainWindow.moveTo(screens.width-mainWindow.width,0);
-                mainWindow.moveTo(rightCorner,myScreen.work_area.y);
             },2000);
  
         </script>
+ 
         <a href="#"onclick="mainWindow.toggleKioskMode();">Toggle Kiosk Mode</a><br>
-        
-        <!-- Custom title bar -->
-        <span class='draggable'>
-            Draggable
-            <a href="#"onclick="window.close()" class="exit">&#x2716;</a>
-        </span>
-        <!-- Window content -->
-        <p>Window Content</p>
-        
+ 
         <style>
-            html, body{
-                padding:0;margin:0;
-            }
-            .draggable{
-                display: block; background:#eee;
-                padding:10px; cursor:default;
-                -webkit-app-region:drag;
-                -webkit-user-select:none;
-            }
-            .exit{
-                float:right; color:#666; text-decoration : none;
-                cursor : default;
-                -webkit-app-region: no-drag;
-            }
-            .exit:hover{ color : #333;}
         </style>        
 
     </body>
