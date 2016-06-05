@@ -49,9 +49,9 @@ myApp.todos.addNew = function(){
 
 myApp.todos.render = function ( todo, focus) {
     
-    var todoTemplate = myApp.loadTemplate('todo',todo),
-    $todo = $(todoTemplate).prependTo('#todoList'.hide().slideDown(300),
-    $content = $todo.find('.todo-content'),
+    var todoTemplate = myApp.loadTemplate('todo',todo);
+    $todo = $(todoTemplate).prependTo('#todoList'.hide().slideDown(300));
+    $content = $todo.find('.todo-content');
     $check = $todo.find('.todo-check');
     
     myApp.resizeTextarea($content);
@@ -77,14 +77,16 @@ $check.on('change',function(){
 
 // On content change
 var timer;
+
 $content.on('input',function(){
     myApp.resizeTextarea($content);
+
     if( typeof timer !== 'undefined') clearTimeout(timer);
     clearTimeout(timer);
     timer = setTimeout(function(){
         todo.content = $content.val();
         myApp.todos.update(todo);
-    }, 1000};
+    }, 1000);
 });
 
 myApp.todos.update = function(todo){
