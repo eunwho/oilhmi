@@ -3,7 +3,7 @@
     "main" : "index.html",
     "window" : {
         "show" : false,
-        "icon" : icon16.png,
+        "icon" : "icon16.png",
         "min_width" : 480,
         "min_height" : 600,
         "width":480,
