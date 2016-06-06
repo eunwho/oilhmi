@@ -81,7 +81,7 @@ myApp.nativeUI.creatWindowMenu = function(){
             modifiers:"ctrl-alt",
             click: myApp.nativeUI.openOptionsWindow()
         }));
-    
+        
         options.append(new myApp.gui.MenuItem({
             label:'Hide completed',
             type: 'checkbox',
@@ -179,7 +179,7 @@ myApp.nativeUI.openOptionsWindow = function(){
 
     if ( myApp.optionsWindow) return false;
 
-    myApp.gui.Window.open('options.html',{
+    myApp.gui.Window.open('views/options.1.html',{
         position: 'center',
         width: 400,
         height: 220,
