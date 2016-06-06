@@ -82,7 +82,8 @@ myApp.nativeUI.creatWindowMenu = function(){
             label:"Options",
             key:"o",
             modifiers:"ctrl-alt",
-            click: myApp.nativeUI.openOptionsWindow()
+            // click: myApp.nativeUI.openOptionsWindow()
+            clcik: myApp.gui.Window.open("options.html")
         }));
        
         options.append(new myApp.gui.MenuItem({
