@@ -82,8 +82,7 @@ myApp.nativeUI.creatWindowMenu = function(){
             label:"Options",
             key:"o",
             modifiers:"ctrl-alt",
-            // click: myApp.nativeUI.openOptionsWindow()
-            // click: console.warn( "Now debugging")
+            click: myApp.nativeUI.openOptionsWindow()
         }));
        
         options.append(new myApp.gui.MenuItem({
@@ -181,12 +180,9 @@ myApp.nativeUI.restoreWindowPosition = function(){
 
 myApp.nativeUI.openOptionsWindow = function(){
 
-    if ( myApp.optionsWindow){
-        console.warn("myApp.optionsWindow error");
-        return false;  
-    } 
+    if ( myApp.optionsWindow) return false;  
 
-    myApp.gui.Window.open('views/options.html',{
+    myApp.gui.Window.open("options.html",{
         position: 'center',
         width: 400,
         height: 220,
