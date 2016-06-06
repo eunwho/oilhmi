@@ -58,36 +58,45 @@ myApp.todos.render = function ( todo, focus) {
     
     // focus on the created todo
     if(focus) $content.focus();
+
     // -- add event ther --
+
+    // On check/uncheck item
+    $check.on('change',function(){
+        todo.checked = $(this).is(':checked');
+        myApp.todos.update(todo);
+        // Disable in check
+        if(todo.checked){
+            if(localStorage.hideComplated === 'true') myApp.removeFromGUI($todo);
+            else
+                $content.attr('disabled',true);
+        } else {
+            $content.romoveAttr('disabled');
+        }
+    });
+    
+    // On content change
+    var timer;
+    $content.on('input',function(){
+        myApp.resizeTextarea($content);
+    
+        if( typeof timer !== 'undefined') clearTimeout(timer);
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            todo.content = $content.val();
+            myApp.todos.update(todo);
+        }, 1000);
+    });
+
+    // On delete item
+    $todo.find('.delete-button').on('click',function(e){
+      e.preventDefault();
+      myApp.removeFromGUI($todo);
+      myApp.db.remove(todo);
+    });
+    
 };
 
-// On check/uncheck item
-$check.on('change',function(){
-    todo.checked = $(this).is(':checked');
-    myApp.todos.update(todo);
-    // Disable in check
-    if(todo.checked){
-        if(localStorage.hideComplated === 'true') myApp.removeFromGUI($todo);
-        else
-            $content.attr('disabled',true);
-    } else {
-        $content.romoveAttr('disabled');
-    }
-});
-
-// On content change
-var timer;
-
-$content.on('input',function(){
-    myApp.resizeTextarea($content);
-
-    if( typeof timer !== 'undefined') clearTimeout(timer);
-    clearTimeout(timer);
-    timer = setTimeout(function(){
-        todo.content = $content.val();
-        myApp.todos.update(todo);
-    }, 1000);
-});
 
 myApp.todos.update = function(todo){
     myApp.db.put(todo,function callback(err,result){
@@ -96,14 +105,10 @@ myApp.todos.update = function(todo){
     });
 };
 
-// On delete item
-$todo.find('.delete-button').on('click',function(e){
-  e.preventDefault();
-  myApp.removeFromGUI($todo);
-  myApp.db.remove(todo);
-});
 
-myApp.todos.init() = function(){
+
+
+myApp.todos.init = function(){
     myApp.removeFromGUI($('#todoList').find('li'));
     if(localStorage.hideComplated === 'true') myApp.todos.loadUncompleted();
     else myApp.todos.loadAll();
@@ -111,7 +116,7 @@ myApp.todos.init() = function(){
 
 myApp.todos.loadAll = function(){
     myApp.db.allDocs({include_docs:true},function(err,resp){
-        resp.rows.forEach(function(item)){
+        resp.rows.forEach(function(item){
             myApp.todos.render(item.doc);
         });
     });
@@ -138,7 +143,7 @@ $('#fileDialog').on('change',function(){
 myApp.todos.export = function( path){
     var fs = require('fs'), data =[],jsonData;
     myApp.db.allDocs({includes_docs:true},function(err,resp){
-        resp.rows.forEach(function(item)){
+        resp.rows.forEach(function(item){
             var newItem = {
                 content:item.doc.content,
                 completed:item.doc.checked

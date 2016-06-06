@@ -1,16 +1,17 @@
 {
-    "name" : "ToDo!",
-    "main" : "index.html",
-    "window" : {
-        "show" : true,
-        "icon" : "icon16.png",
-        "min_width" : 480,
-        "min_height" : 600,
-        "width":480,
-        "height" : 600,
-        "toolbar" : false
-    },
-    "dependencies" : {
-        "swig" : "1.4.2"
-    }
+  "name": "ToDO!",
+  "main": "index.html",
+  "window": {
+    "show": true,
+    "icon": "icon16.png",
+    "min_width": 480,
+    "min_height": 600,
+    "width": 480,
+    "height": 600,
+    "toolbar": false
+  },
+  "dependencies": {
+    "pouchdb": "^5.3.2",
+    "swig": "1.4.2"
+  }
 }

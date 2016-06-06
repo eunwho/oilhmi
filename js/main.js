@@ -1,9 +1,11 @@
 var myApp ={};
 myApp.init = function(){
     // Instance the DB
-    myApp.db =new PouchDB('todos');
+    myApp.db = new PouchDB('todos');
     // Init the todo App
-    myApp.todo.init();
+    myApp.todos.init();
+    
+    myApp.nativeUI.init();
 };
 
 $(window).load(myApp.init);
