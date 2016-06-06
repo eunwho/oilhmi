@@ -1,4 +1,5 @@
 myApp.todos ={};
+
 myApp.todos.init = function (){
     // Load main application view 
     myApp.loadTemplate('app',null,'#mainView');

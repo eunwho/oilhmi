@@ -177,9 +177,12 @@ myApp.nativeUI.restoreWindowPosition = function(){
 
 myApp.nativeUI.openOptionsWindow = function(){
 
-    if ( myApp.optionsWindow) return false;
+    if ( myApp.optionsWindow){
+        console.warn("myApp.optionsWindow error");
+        return false;  
+    } 
 
-    myApp.gui.Window.open('views/options.1.html',{
+    myApp.gui.Window.open('views/options.html',{
         position: 'center',
         width: 400,
         height: 220,

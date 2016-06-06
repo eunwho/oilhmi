@@ -5,6 +5,8 @@ myApp.init = function(){
     // Init the todo App
     myApp.todos.init();
     
+    //----
+    
     myApp.nativeUI.init();
 };
 
