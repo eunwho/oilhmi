@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ToDO! &raquo; Options</title>
+        <link rel="stylesheet" type="text/css" href="css/options.css"></link>
+        <script type="text/javascript" src="vendor/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="js/options.js"></script>
+        <script type="text/javascript" src="js/helpers.js"></script>
+    </head>
+    <body>
+        <form>
+            <label>
+                Notes Background color
+                <input type = "color" id="notesColor" value="{{notesColor}}" list="color"/>
+                <datalist id ="color">
+                    <option value = "#F8F8FF"></option>
+                    <option value = "#D7E5C5"></option>
+                    <option value = "#C8C3E0"></option>
+                    <option value = "#CBDDE1"></option>
+                </datalist>
+            </label>
+            <label>
+                Remote CouchDB Url
+                <input type="text" id = "CouchDbUrl" value="{{couchDbUrl" placeholder = "https://xxx.iriscouch.com/todo"/>
+            </label>
+            <div class = "buttons">
+                <button id="dismiss"> Dismiss </button>
+            </div>
+        </form>
+    </body>
+</html>

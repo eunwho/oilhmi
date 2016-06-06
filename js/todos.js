@@ -1,16 +1,18 @@
 myApp.todos ={};
 
 myApp.todos.init = function (){
+
     // Load main application view 
     myApp.loadTemplate('app',null,'#mainView');
     
     // Change todos bg color
     
-    myApp.todos.changeBackgroundColor(localStorage.noteColor || '#F8F8FF');
+    myApp.todos.changeBackgroundColor(localStorage.notesColor || '#F8F8FF');
+    // Load data from DB
+    myApp.todos.load();
+
     // Listen for events
     myApp.todos.listenForEvents();
-    // Load data from DB
-    myApp.todos.loads();
 };
 
 myApp.todos.listenForEvents = function () {
@@ -20,18 +22,19 @@ myApp.todos.listenForEvents = function () {
         myApp.todos.addNew();
     });
 };
+
 myApp.todos.load = function () {};
 
 myApp.todos.changeBackgroundColor= function( color ) {
-    var $customStyle = $('<style/>',{
-        html : '#todoListContainer , #todoList li { background: '+ color +';}',
-        id : 'customStyle'
-        });
-        if( $('#customStyle').length> 0){
+    var $customStyle = $('<style/>',{ html : '#todoListContainer , #todoList li { background: '+ color +';}',
+    id : 'customStyle'
+    });
+        
+    if( $('#customStyle').length> 0){
             $('#customStyle').replaceWith($customStyle);
-        } else {
-            $customStyle.appendTo('head');
-        }
+    } else {
+        $customStyle.appendTo('head');
+    }
 };
 
 
@@ -50,17 +53,16 @@ myApp.todos.addNew = function(){
 
 myApp.todos.render = function ( todo, focus) {
     
-    var todoTemplate = myApp.loadTemplate('todo',todo);
-    $todo = $(todoTemplate).prependTo('#todoList'.hide().slideDown(300));
-    $content = $todo.find('.todo-content');
-    $check = $todo.find('.todo-check');
+    var todoTemplate = myApp.loadTemplate('todo',todo), 
+    $todo = $(todoTemplate).prependTo('#todoList').hide().slideDown(300), 
+    $content = $todo.find('.todo-content'), $check = $todo.find('.todo-check');
     
     myApp.resizeTextarea($content);
     
     // focus on the created todo
     if(focus) $content.focus();
 
-    // -- add event ther --
+    // -- Add event here --
 
     // On check/uncheck item
     $check.on('change',function(){

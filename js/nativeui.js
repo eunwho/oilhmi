@@ -15,8 +15,11 @@ myApp.nativeUI.init = function(){
     myApp.nativeUI.creatWindowMenu();
     
     myApp.mainWindow.show();
-
     
+    myApp.nativeUI.listenForStorageEvents();
+    
+    myApp.nativeUI.delayClosing();
+
 };
 
 
@@ -79,9 +82,10 @@ myApp.nativeUI.creatWindowMenu = function(){
             label:"Options",
             key:"o",
             modifiers:"ctrl-alt",
-            click: myApp.nativeUI.openOptionsWindow()
+            // click: myApp.nativeUI.openOptionsWindow()
+            // click: console.warn( "Now debugging")
         }));
-        
+       
         options.append(new myApp.gui.MenuItem({
             label:'Hide completed',
             type: 'checkbox',
@@ -202,7 +206,9 @@ myApp.nativeUI.openOptionsWindow = function(){
 };
 
 myApp.nativeUI.listenForStorageEvents = function(){
+
     // Fired only when the event comes from a different window
+
     window.addEventListener('storage',function(e){
         switch(e.key) {
             case 'notesColor':
