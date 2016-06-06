@@ -66,71 +66,59 @@ myApp.nativeUI.creatWindowMenu = function(){
         
         windowMenu.append(editMenu);
 
-
+ 
         //---  Create options menu
         
         var optionsMenu = new myApp.gui.MenuItem({
             label:"Options"
         });
 
-        var optionsSubmenu = myApp.nativeUI.createOptionsMenu();
+        var options = new myApp.gui.Menu();
+
+        options.append(new myApp.gui.MenuItem({
+            label:"Options",
+            key:"o",
+            modifiers:"ctrl-alt",
+            click: myApp.nativeUI.openOptionsWindow()
+        }));
+    
+        options.append(new myApp.gui.MenuItem({
+            label:'Hide completed',
+            type: 'checkbox',
+            key:"h",
+            modifiers:"ctrl-alt",
+            checked: (localStorage.hideComplated === 'true'),
+            click: function(){
+                localStorage.hideComplated = this.checked;
+                myApp.todos.load();
+            }
+        }));
+ 
+        options.append(new myApp.gui.MenuItem({
+            label:'Export',
+            key:"e",
+            modifiers:"ctrl-alt",
+            checked: (localStorage.hideComplated === 'true'),
+            click: function(){
+                $('#fileDialog').click();
+            }
+        }));
         
-        optionsMenu.submenu = optionsSubmenu;
-        
+        options.append(new myApp.gui.MenuItem({
+            label:'Sync',
+            enabled: Boolean(localStorage.countDbUrl),
+            key:"s",
+            modifiers:"ctrl-alt",
+            click: myApp.todos.sync
+        }));
+
+        optionsMenu.submenu = options;
         windowMenu.append(optionsMenu);
 
     }
-
     // Assign the menu to window
     myApp.mainWindow.menu = windowMenu;
 };
-
-
-//--- Options submenu 
-
-myApp.nativeUI.createOptionsMenu = function(){
-
-    var optionsMenu = new myApp.gui.Menu();
-
-    optionsMenu.append(new myApp.gui.MenuItem({
-        label:'Options',
-        key:"o",
-        modifiers:"ctrl-alt",
-        click: myApp.nativeUI.openOptionsWindow()
-    }));
-
-    optionsMemu.append(new myApp.gui.MenuItem({
-        label:'Hide completed',
-        type: 'checkbox',
-        key:"h",
-        modifiers:"ctrl-alt",
-        checked: (localStorage.hideComplated === 'true'),
-        click: function(){
-            localStorage.hideComplated = this.checked;
-            myApp.todos.load();
-        }
-    }));
-    
-    optionsMenu.append(new myApp.gui.MenuItem({
-        label:'Export',
-        key:"e",
-        modifiers:"ctrl-alt",
-        checked: (localStorage.hideComplated === 'true'),
-        click: function(){
-            $('#fileDialog').click();
-        }
-    }));
-    
-    optionsMenu.append(new myApp.gui.MenuItem({
-        label:'Sync',
-        enabled: Boolean(localStorage.countDbUrl),
-        key:"s",
-        modifiers:"ctrl-alt",
-        click: myApp.todos.sync
-    }));
-
-    return optionsMenu;
-}
 
 myApp.nativeUI.createEditMenu = function(){
     
@@ -206,9 +194,7 @@ myApp.nativeUI.openOptionsWindow = function(){
 
     myApp.mainWindow.on('closed',function(){
         myApp.optionsWindow = null;
-
-    myApp.mainWindow.removeAllListeners('focus');
-
+        myApp.mainWindow.removeAllListeners('focus');
     });
 };
 
